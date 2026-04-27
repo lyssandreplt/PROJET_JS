@@ -1,11 +1,10 @@
 import { buildBigrams, entropy, getTopN, mergeModels, recordKeypress, toProbabilities } from './markov.js';
-
+import { CORPUS } from './data.js';
 // ─── 1. Corpus pré-entraîné ───────────────────────────────────────────────────
 
-const corpus =
-  'le chat mange la souris sur le tapis le soleil brille sur la ville les enfants jouent dans la cour';
 
-const pretrained = buildBigrams(corpus);
+
+const pretrained = buildBigrams(CORPUS);
 console.log('=== Modèle pré-entraîné ===');
 console.log('Top 5 après "le" :', getTopN(5, pretrained, 'le'));
 
