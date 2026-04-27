@@ -5,8 +5,8 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
     "test": "node --test src/*.test.js",
     "lint": "biome lint ./src",
     "format": "biome format --write ./src",
