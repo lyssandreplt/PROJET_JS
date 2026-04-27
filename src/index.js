@@ -1,4 +1,4 @@
-import { buildBigrams, entropy, getTopN, mergeModels, recordKeypress, toProbabilities } from './bobbi.js';
+import { buildBigrams, entropy, getTopN, mergeModels, recordKeypress, toProbabilities } from './markov.js';
 
 // ─── 1. Corpus pré-entraîné ───────────────────────────────────────────────────
 
