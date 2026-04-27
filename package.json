@@ -1,19 +1,25 @@
 {
-  "name": "mon-projet",
+  "name": "projet_js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Chaine de Markov pour prediction de touches clavier",
   "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "format": "biome format --write .",
-    "lint": "biome lint .",
-    "check": "biome check ."
+    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "node --test src/*.test.js",
+    "lint": "biome lint ./src",
+    "format": "biome format --write ./src",
+    "check": "biome check ./src"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "ramda": "^0.30.1"
+  },
   "devDependencies": {
-    "@biomejs/biome": "2.4.2"
+    "@biomejs/biome": "^2.4.12",
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
