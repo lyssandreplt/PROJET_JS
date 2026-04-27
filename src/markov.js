@@ -1,5 +1,20 @@
 import * as R from 'ramda';
 
+// ─── Nettoyage du texte ──────────────────────────────────────────────────────
+
+/**
+ * Met en minuscules, enlève les accents, caractères spéciaux
+ * et espaces multiples.
+ */
+const sanitizeText = (text) =>
+  text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z ]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
 // ─── Entraînement ────────────────────────────────────────────────────────────
 
 /**
@@ -10,7 +25,8 @@ import * as R from 'ramda';
  * R.assocPath pour mettre à jour les comptes.
  */
 export const buildBigrams = (text) => {
-  const chars = R.split('', text.toLowerCase());
+  const cleanText = sanitizeText(text);
+  const chars = R.split('', cleanText);
 
   return R.reduce(
     (acc, i) => {
@@ -48,7 +64,8 @@ export const toProbabilities = (counts) => {
  * Utilise R.pipe, R.toPairs, R.sortWith, R.descend, R.take.
  */
 export const getTopN = R.curry((n, bigrams, context) => {
-  const counts = R.propOr({}, context, bigrams);
+  const cleanContext = sanitizeText(context).replace(/ /g, '');
+  const counts = R.propOr({}, cleanContext, bigrams);
 
   if (R.isEmpty(counts)) return [];
 
@@ -92,8 +109,15 @@ export const mergeModels = R.curry((liveWeight, pretrained, live) => {
  * Utilise R.assocPath, R.pathOr.
  */
 export const recordKeypress = R.curry((context, next, liveModel) => {
-  const current = R.pathOr(0, [context, next], liveModel);
-  return R.assocPath([context, next], current + 1, liveModel);
+  const cleanContext = sanitizeText(context).replace(/ /g, '');
+  const cleanNext = sanitizeText(next).replace(/ /g, '');
+
+  if (cleanContext.length !== 2 || cleanNext.length !== 1) {
+    return liveModel;
+  }
+
+  const current = R.pathOr(0, [cleanContext, cleanNext], liveModel);
+  return R.assocPath([cleanContext, cleanNext], current + 1, liveModel);
 });
 
 // ─── Entropie ────────────────────────────────────────────────────────────────
@@ -109,6 +133,6 @@ export const entropy = R.pipe(
   R.reduce((acc, p) => (p > 0 ? acc - p * Math.log2(p) : acc), 0),
 );
 
-// ─── Helper : hello (garde de la version initiale) ───────────────────────────
+// ─── Helper : hello ──────────────────────────────────────────────────────────
 
 export const hello = (name = 'world') => `Hello, ${name}!`;
