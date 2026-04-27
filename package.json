@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Chaine de Markov pour prediction de touches clavier",
   "type": "module",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
     "dev": "nodemon index.js",
