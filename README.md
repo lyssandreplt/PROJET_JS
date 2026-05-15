@@ -16,7 +16,6 @@ Le programme apprend les transitions entre lettres à partir d’un corpus de te
 ## Structure
 - `src/data.js` : corpus d’entraînement
 - `src/markov.js` : logique Markov
-- `src/index.js` : exécution principale
 
 ## Lancer le projet
 ```bash
