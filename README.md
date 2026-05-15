@@ -2,7 +2,7 @@
 NOM : Clara Herbert & Lyssandre Poulet
 
 ## Sujet
-Prédiction de lettre sur un clavier de téléphone à l’aide d’une chaîne de Markov.
+Prédiction de lettre à l’aide d’une chaîne de Markov.
 
 ## Objectif
 Le programme apprend les transitions entre lettres à partir d’un corpus de texte, puis estime la probabilité de la touche suivante selon la touche actuelle.
